@@ -21,20 +21,69 @@
 class SHT1x
 {
   public:
-    SHT1x(int dataPin, int clockPin);
-    float readHumidity();
-    float readTemperatureC();
-    float readTemperatureF();
+    enum class Voltage : uint8_t
+    {
+      DC_5_0v = 0
+      , DC_4_0v
+      , DC_3_5v
+      , DC_3_3v
+      , DC_3_0v
+      , DC_2_5v
+    };
+
+    enum class TemperatureMeasurementResolution : uint8_t
+    {
+      Temperature_14bit = 0
+      , Temperature_12bit
+    };
+
+    enum class HumidityMeasurementResolution : uint8_t
+    {
+      Humidity_12bit = 0
+      , Humidity_8bit
+    };
+
+    enum class ShtCommand : uint8_t
+    {
+      MeasureTemperature        = 0b00000011
+      , MeasureRelativeHumidity = 0b00000101
+      , ReadStatusRegister      = 0b00000111
+      , WriteStatusRegister     = 0b00000110
+      , SoftReset               = 0b00011110
+    };
+
+    SHT1x(uint8_t dataPin, uint8_t clockPin, Voltage voltage = Voltage::DC_5_0v);
+
+    float readHumidity() const;
+    float readTemperatureC() const;
+    float readTemperatureF() const;
+
   private:
-    int _dataPin;
-    int _clockPin;
-    int _numBits;
-    float readTemperatureRaw();
-    int shiftIn(int _dataPin, int _clockPin, int _numBits);
-    void sendCommandSHT(int _command, int _dataPin, int _clockPin);
-    void waitForResultSHT(int _dataPin);
-    int getData16SHT(int _dataPin, int _clockPin);
-    void skipCrcSHT(int _dataPin, int _clockPin);
+    uint16_t readRawData(ShtCommand command, uint8_t dataPin, uint8_t clockPin) const;
+    bool sendCommandSHT(ShtCommand command, uint8_t dataPin, uint8_t clockPin) const;
+    bool waitForResultSHT(uint8_t dataPin) const;
+    uint16_t getData16SHT(uint8_t dataPin, uint8_t clockPin) const;
+    void skipCrcSHT(uint8_t dataPin, uint8_t clockPin) const;
+
+    double getC1(HumidityMeasurementResolution resolution) const;
+    double getC2(HumidityMeasurementResolution resolution) const;
+    double getC3(HumidityMeasurementResolution resolution) const;
+
+    double getT1(HumidityMeasurementResolution resolution) const;
+    double getT2(HumidityMeasurementResolution resolution) const;
+
+    double getD1ForC(Voltage voltage) const;
+    double getD1ForF(Voltage voltage) const;
+
+    double getD2ForC(TemperatureMeasurementResolution resolution) const;
+    double getD2ForF(TemperatureMeasurementResolution resolution) const;
+
+    const uint8_t _dataPin;
+    const uint8_t _clockPin;
+
+    const Voltage _voltage;
+    const TemperatureMeasurementResolution _tempResolution;
+    const HumidityMeasurementResolution _humidityResolution;
 };
 
 #endif
