@@ -32,7 +32,7 @@ sensor:
     SHT1x sht1x(dataPin, clockPin);
     
     // if 3.3v board is used
-    //SHT1x sht1x(dataPin, clockPin, SHT1x::Voltage::DC_3_3v);
+    SHT1x sht1x(dataPin, clockPin, SHT1x::Voltage::DC_3_3v);
 
 You can then call methods on that object within your program. In this
 example we created an object called "sht1x", but it could have been

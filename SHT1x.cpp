@@ -1,6 +1,7 @@
 /**
  * SHT1x Library
  *
+ * Copyright 2017 Vincent Pang <wingshun.pang@gmail.com>
  * Copyright 2009 Jonathan Oxer <jon@oxer.com.au> / <www.practicalarduino.com>
  * Based on previous work by:
  *    Maurice Ribble: <www.glacialwanderer.com/hobbyrobotics/?p=5>
