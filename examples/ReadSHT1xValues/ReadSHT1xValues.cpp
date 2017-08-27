@@ -16,7 +16,11 @@
 #define dataPin  10
 #define clockPin 13
 
+// default to 5.0v boards, e.g. Arduino UNO
 SHT1x sht1x(dataPin, clockPin);
+
+// if 3.3v board is used
+//SHT1x sht1x(dataPin, clockPin, SHT1x::Voltage::DC_3_3v);
 
 void setup()
 {
