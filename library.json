@@ -1,6 +1,6 @@
 {
     "name": "SHT1x",
-    "keywords": "sensor, humidity, temperature",
+    "keywords": "sensor, humidity, temperature, sht10, sht11, sht15, sht1x",
     "description": "Based on the SHT1x from practicalarduino, updated coefficients according to the v5 datasheet. Provides a simple interface to the SHT1x series (SHT10, SHT11, SHT15) and SHT7x series (SHT71, SHT75) temperature / humidity sensors from Sensirion",
     "repository":
     {
@@ -8,5 +8,11 @@
         "url": "https://github.com/Vincent-Pang/SHT1x.git"
     },
     "frameworks": "arduino",
-    "platforms": "atmelavr"
+    "platforms": "atmelavr",
+    "authors":
+    {
+        "name": "Vincent Pang",
+        "email": "wingshun.pang@gmail.com"
+    },
+    "version": "2.0.0"
 }
