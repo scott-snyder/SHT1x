@@ -55,16 +55,20 @@ class SHT1x
 
     SHT1x(uint8_t dataPin, uint8_t clockPin, Voltage voltage = Voltage::DC_5_0v);
 
-    float readHumidity() const;
-    float readTemperatureC() const;
-    float readTemperatureF() const;
+    float readHumidity(int* err = nullptr) const;
+    float readTemperatureC(int* err = nullptr) const;
+    float readTemperatureF(int* err = nullptr) const;
 
-  private:
-    uint16_t readRawData(ShtCommand command, uint8_t dataPin, uint8_t clockPin) const;
-    bool sendCommandSHT(ShtCommand command, uint8_t dataPin, uint8_t clockPin) const;
-    bool waitForResultSHT(uint8_t dataPin) const;
-    uint16_t getData16SHT(uint8_t dataPin, uint8_t clockPin) const;
-    void skipCrcSHT(uint8_t dataPin, uint8_t clockPin) const;
+  //private:
+    uint16_t readRawData(ShtCommand command, int* err) const;
+    bool sendCommandSHT(ShtCommand command, int* err) const;
+    bool waitForResultSHT(int* err) const;
+    uint16_t getData16SHT(int* err) const;
+    void skipCrcSHT() const;
+    uint8_t readCrcSHT() const;
+    uint8_t crc8(const uint8_t data, const uint8_t startval) const;
+    uint8_t calcCRC(ShtCommand command, uint8_t status, uint16_t data,
+                    unsigned nbytes) const;
 
     double getC1(HumidityMeasurementResolution resolution) const;
     double getC2(HumidityMeasurementResolution resolution) const;
@@ -78,6 +82,8 @@ class SHT1x
 
     double getD2ForC(TemperatureMeasurementResolution resolution) const;
     double getD2ForF(TemperatureMeasurementResolution resolution) const;
+
+    uint8_t shiftIn() const;
 
     const uint8_t _dataPin;
     const uint8_t _clockPin;
