@@ -1,5 +1,5 @@
 Bottom: 28699293848428c8e3dbe8ec49ec8b63fed7ea9b
-Top:    28699293848428c8e3dbe8ec49ec8b63fed7ea9b
+Top:    cf3306bbf0eb27aeb8f2d4b28828acea2e3a7a66
 Author: scott snyder <sss@karma>
 Date:   2020-11-14 18:32:59 -0500
 
@@ -9,4 +9,6 @@ Fixes for feather.
 
 ---
 
-
+SHT1x.cpp | 170 +++++++++++++++++++++++++++++++++++++++++++++-----------------
+ SHT1x.h   |  24 +++++----
+ 2 files changed, 138 insertions(+), 56 deletions(-)
